@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <p class="button" style="color:blueviolet; text-align: center;"><a href="./MainPage.html"><button style="display:inline-block;block-size:50px; background-color:rgb(188, 132, 3); box-shadow: #4d0256;">الرجوع للصفحة الرئيسية </button></a></p>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS_Layers</title>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/maps.js"></script>
+<script src="https://www.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<div id="chartdiv"></div>
+
+
+    <style>
+
+        .Table {
+            background-color: rgb(225, 229, 230);
+            margin-left: auto;
+            margin-right: auto;   
+            box-shadow: 5px #f2e4f4;
+            font-size: large;
+            color: rgb(255, 240, 240);
+        
+            text-align: center;
+        
+        }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        
+        #chartdiv {
+          width: 100%;
+          height: 500px;
+        max-width:100%;
+        }
+        
+        
+        
+        </style>
+<script>
+        
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+            
+            var chart = am4core.create("chartdiv", am4maps.MapChart);
+            
+            // Set map definition
+            chart.geodata = am4geodata_worldLow;
+            
+            // Set projection
+            chart.projection = new am4maps.projections.Orthographic();
+            chart.panBehavior = "rotateLongLat";
+            chart.deltaLatitude = -20;
+            chart.padding(20,20,20,20);
+            
+            // Create map polygon series
+            var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+            
+            // Make map load polygon (like country names) data from GeoJSON
+            polygonSeries.useGeodata = true;
+            //polygonSeries.include = ["BR", "UA", "MX", "CI"];
+            
+            // Configure series
+            var polygonTemplate = polygonSeries.mapPolygons.template;
+            polygonTemplate.tooltipText = "{name}";
+            polygonTemplate.fill = am4core.color("#FF6633");
+            polygonTemplate.stroke = am4core.color("#000033");
+            polygonTemplate.strokeWidth = 0.5;
+            polygonTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+            polygonTemplate.url = "https://www.datadrum.com/main.php?package={id}";
+            polygonTemplate.urlTarget = "_blank";
+            
+            var graticuleSeries = chart.series.push(new am4maps.GraticuleSeries());
+            graticuleSeries.mapLines.template.line.stroke = am4core.color("#ffffff");
+            graticuleSeries.mapLines.template.line.strokeOpacity = 0.08;
+            graticuleSeries.fitExtent = false;
+            
+            
+            chart.backgroundSeries.mapPolygons.template.polygon.fillOpacity = 0.1;
+            chart.backgroundSeries.mapPolygons.template.polygon.fill = am4core.color("#ffffff");
+            
+            // Create hover state and set alternative fill color
+            var hs = polygonTemplate.states.create("hover");
+            hs.properties.fill = chart.colors.getIndex(0).brighten(-0.5);
+            
+            let animation;
+            setTimeout(function(){
+              animation = chart.animate({property:"deltaLongitude", to:100000}, 20000000);
+            }, 3000)
+            
+            chart.seriesContainer.events.on("down", function(){
+            //  animation.stop();
+            })
+            
+</script>    
+</head>
+
+
+    
+
+<body style="background-color:  rgb(45, 1, 55);">
+    
+
+
+    <table style="background-color: rgb(125, 82, 137); border-color: orange;" class="Table" border="10" >
+
+        <th>
+
+            <tr style="color: rgb(45, 1, 55); font-size: larger; font-weight: bolder;">
+                <td>Layer</td>
+                <td>Date</td>
+                <td>Provider</td>
+                <td>Link</td>
+            </tr>
+
+
+
+            <tr style="color: black;">
+
+                <td>Riyadh Factories</td>
+                <td>2019</td>
+                <td>GIS4u.com</td>
+                <td><a style="color: orange;" href="./Riyadh Factories (1).rar">اضغط للتحميل</a></td>
+            </tr>
+
+            <tr style="color: black;">
+                <td>Riyadh Provinces</td>
+                <td>2019</td>
+                <td>GIS4u.com</td>
+                <td><a style="color: orange;" href="./Provinces.zip">اضغط للتحميل</a></td>
+            </tr>
+            <tr style="color: black;">
+
+                <td>Riyadh Gardens</td>
+                <td>2019</td>
+                <td>GIS4u.com</td>
+                <td><a style="color: orange;" href="./Riyadh Gardens.rar">اضغط للتحميل</a></td>
+            </tr>
+
+
+            <tr style="color: black;">
+
+                <td>Riyadh Population Per Province</td>
+                <td>2022</td>
+                <td>GIS4u.com /Saudi.census.com (for population)</td>
+                <td><a style="color: orange;" href="./Population with density.zip">اضغط للتحميل</a></td>
+            </tr>
+
+            <tr style="color: black;">
+                <td>Riyadh Roads</td>
+                <td>2019</td>
+                <td>GIS4u.com</td>
+                <td><a style="color: orange;" href="./Roads.zip">اضغط للتحميل</a></td>
+            </tr>
+        </th>
+    </table>
+
+
+
+    
+</body>
+</html>
