@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minerals </title>
+    <p class="button" style="color:rgb(226, 131, 43); text-align: center;"><a href="./Myworks.html"><button style="display:inline-block;block-size:50px; background-color:rgb(188, 132, 3); box-shadow: #4d0256;"> الرجوع للصفحة السابقة </button></a></p>
+
+</head>
+<style>
+    #loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border-bottom: 16px solid #38063a;
+  border-radius: 50%;
+  border-top: 16px solid orange;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+} 
+#dd {
+    border-radius: 30cm;
+    border-color: orange;
+    background-color: orange;
+    border: 5px solid orange;
+}
+.aa {
+
+    color: orange;
+    float: left;
+}    
+</style>
+<script>
+
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+    </script>
+<body onload="myFunction()" style="margin: 0;  background-color:  rgb(226, 131, 43)">
+
+    <div id="loader"></div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+
+
+        <h1>Identify Mineral Sites using GIS and Remote Sensing</h1>
+
+        <p style="text-align: center; color: aliceblue;font-size: x-large;">Intro.</p>
+
+        <p style="margin-left: auto; margin-right: auto; text-align: center;">The Saudi Arabian Mining Company (Maaden) recently announced the potential discovery of significant gold resource potential extending along a <nobr style="color: red;">100km</nobr> length of the existing Mansoura and Masara gold mine. <br>This is the first discovery within the intensive exploration program in Ma’aden, which was launched in 2022 and aims to build a mineral production line.  This is not a coincidence, as the number<br> of exploration and  mining licenses has increased over the past three years  by more than <nobr style="color: red;">200%</nobr> compared to what was granted during the past seven years. It is known that the Arabian Shield  <br> region is considered a major source of precious and basic metals, with an area of ​​700 thousand square kilometers or the equivalent of the area of ​​Kazakhstan. But exploration and <br> extraction of gold is only one part of the mining system in the Kingdom, as the value of unexploited minerals is estimated at <nobr style="color: red;">$1.3 trillion</nobr>, a number <br> equivalent to the annual gross domestic product of some countries such as <nobr style="color: red;">Australia and Spain</nobr>.(Source: maal newspaper)</p>
+<br>
+<p style="text-align: center; color: aliceblue;font-size: x-large;">My Study Area</p>
+
+<p>In Area about 37,490 Square Kilometer South-West of Saudi Arabia, I chose to set the Minerals Identificaion Project, In Asir Region (Al-Baha and Bishah and some part of the Red Sea).see fig(1)</p>
+<br>
+<img src="./Area.png" width="1000" height="500" alt="">
+<br>
+<p>As Part 1 ,and there will be more areas to discover soon InshaAllah</p>
+<br>
+<p style="text-align: center; color: aliceblue;font-size: x-large;">Data</p>
+<p>I Took the Data (Landsat8 Satellite Imagery) from USGS (United States Geological Survey)</p>
+<br>
+<p style="text-align: left; margin-left: 100px; margin-right: 100px;">The Landsat 8 satellite payload consists of two science instruments—the Operational Land Imager (OLI) and the Thermal Infrared Sensor (TIRS). These two sensors provide seasonal coverage of the global landmass at a spatial resolution of 30 meters (visible, NIR, SWIR); 100 meters (thermal); and 15 meters (panchromatic).
+    <br> (Source:landsat.gsfc.nasa.gov)</p>
+    <br>
+    <img src="./Landsat Bands.png" width="400" height="400" alt="">
+    <br>
+    <br>
+    <p style="text-align: center; color: aliceblue;font-size: x-large;">Correcting The Atmospheric factor , Sun elevation</p>
+
+
+    <img src="./معادلة تصحيح اخطاء الغلاف الجوي وارتفاع الشمس.png" alt="">
+<br>
+<br>
+using the above equation I corrected all the acquired bands and use the Factors in Landsat metadata file , where i got the sun elevation and band reflectance, and use (ArcGIS PRO Image Analysis Tools )for my project, using Raster Calculcator .I did the 2 Equations in one STEP .see fig(2) below
+<br>
+<br>
+<img src="./Atmosphere.png" width="1000" height="500" alt="">
+<br>
+<br>
+<p style="text-align: center; color: aliceblue;font-size: x-large;">Rock Index, Band Ratio Technique, Compositions and Link view comparisons</p>
+<p>Rock index is defined as a ratio similar with NDVI but different bands , Using Raster Calculator Tool in GIS : RI = (B7 - B3) / (B7 + B3) see fig(3) below</p>
+<br>
+<img src="./Layout for RI2.jpg" width="1000" height="1000" alt="">
+<br>
+<br>
+<br>
+<p>Using Band Ratio 4/2 ,6/7 and 6/5 and composite the Ratios as 4/2 for RED and 6/7 for GREEN and 6/5 for BLUE using GIS . See fig(4) below</p>
+<br>
+<br>
+<img src="./Layout for Composition 1.jpg" width="1000" height="1000" alt="">
+<br>
+<br>
+<br>
+<p>Using Band Ratios 4/2,6/7 and Ratio of their sum 4/2+6/7 I got the following Result using GIS. See fig(5) below:</p>
+<br>
+<br>
+<img src="./Layout for Composition 2.jpg" height="1000" width="1000" alt="">
+<br>
+<br>
+<p>Using Band Ratioing 6/5,7/5,4/7 I got the following Result using GIS . See fig(6) Below: </p>
+<br>
+<br>
+<img src="./Layout for Composition 3.jpg" height="1000" width="1000" alt="">
+<br>
+<br>
+<p>Now the analysis part. and do comparison. see Fig(7),Fig(8),Fig(9) and fig(10) below:</p>
+<br>
+<br>
+<img src="./Composition 1,2 .png" height="1200" width="1000" alt="">
+<br>
+<p style="text-align: center;">Fig(7)</p>
+<br>
+<br>
+<img src="./composition 1,2 part2.png" width="1200" height="1000" alt="">
+<br>
+<p style="text-align: center;">Fig(8)</p>
+<br>
+<br>
+<img src="./composition 1,2 part3.png" width="1200" height="1000" alt="">
+<br>
+<p style="text-align: center;">Fig(9)</p>
+<br>
+<br>
+<img src="./composition 2,3.png" width="1200" height="1000" alt="">
+<br>
+<p style="text-align: center;">Fig(10)</p>
+<br>
+<br>
+<h2 style="color: aliceblue; text-align: center;">The End Thank You for watching</h2>
+
+
+
+</body>
+</html>
