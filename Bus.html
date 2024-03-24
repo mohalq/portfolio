@@ -1,0 +1,93 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+  <meta name="viewport" content="width=device-width, initial scale=1">
+  <title>WebGIS Project 1</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 600px;
+      width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgb(226, 131, 43);
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+  <script>
+
+    
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/FeatureLayer"
+    
+
+  ], function(esriConfig, Map, MapView, FeatureLayer) {
+
+  esriConfig.apiKey = "AAPKadf4f953039b47b2b81ae69dae4553b0SkEQBHTS041BoewLfuqt3LB9T8ERNT0b8Q3J-f5_lHLTitxL90RfhhZN2TNUBIFL";
+
+  const map = new Map({
+    basemap: "arcgis/topographic"
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [46.630,24.497 ],
+    zoom: 15
+    
+  });
+
+//Trails feature layer (lines)
+const trailsLayer = new FeatureLayer({
+    url: "https://services2.arcgis.com/UvL23EcdR4wRWodX/arcgis/rest/services/Bus2/FeatureServer/2"
+  });  
+map.add(trailsLayer);
+//Trailheads feature layer (points)
+  const trailheadsLayer = new FeatureLayer({
+    url: "https://services2.arcgis.com/UvL23EcdR4wRWodX/arcgis/rest/services/Bus2/FeatureServer/1"
+  });
+
+
+  map.add(trailheadsLayer);
+
+
+
+  const layer = new FeatureLayer({
+  portalItem: {
+    id: "0b57ceff436e462ebb01415c4ee08349"
+  }
+});
+
+map.add(layer);
+require(["esri/widgets/Legend"], (Legend) => { let legend = new Legend({
+  view: view
+});
+
+view.ui.add(legend, "bottom-right"); });
+
+
+
+  });
+
+
+</script>
+
+</head>
+
+<body>
+
+  <p style="color:aliceblue; font-size: x-large;text-align: center;direction: rtl;">خريطة تفاعلية استكمالا لمشروع الحافلات WebGIS</p>
+  <p class="button" style="color:blueviolet; text-align: center;"><a href="./MainPage3.html"><button style="display:inline-block;block-size:30px; background-color:orange; box-shadow: #4d0256;">الرجوع للصفحة السابقة </button></a></p>
+  <p style="color:aliceblue; font-size:x-small;text-align: center;direction: rtl;">قم بالضغط على Bus Stations لعرض البيانات والصور</p>
+
+  <div id="viewDiv"></div>
+</body>
+<footer style="color:aliceblue;text-align: center;">اعداد الطالب محمد القحطاني</footer>
+</html>
