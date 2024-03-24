@@ -1,0 +1,85 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-Edge">
+  <meta name="viewport" content="width=device-width, initial scale=1">
+  <title>WebGIS Project 1</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 600px;
+      width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgb(226, 131, 43);
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+
+  <script>
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/FeatureLayer"
+    
+
+  ], function(esriConfig, Map, MapView, FeatureLayer) {
+
+  esriConfig.apiKey = "AAPK3a1d701541f443e7b984c5b0d07f7846sDel4nGH4us9eXe-rk7CzUBwainxos6p6OSiLh_wAng_P9_IHWNKURnni40Pj9Xq";
+
+  const map = new Map({
+    basemap: "arcgis/topographic"
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [46.6230574929356,24.725552477625687 ],
+    zoom: 15
+    
+  });
+
+//Trailheads feature layer (points)
+  const trailheadsLayer = new FeatureLayer({
+    url: "https://services5.arcgis.com/2ICG4dvaNqvK9y81/arcgis/rest/services/KSU_Facilities/FeatureServer/0"
+  });
+
+  map.add(trailheadsLayer);
+
+  const layer = new FeatureLayer({
+  portalItem: {
+    id: "15653a5d8e18488f8d2aac779a0a028a"
+  }
+});
+
+map.add(layer);
+require(["esri/widgets/Legend"], (Legend) => { let legend = new Legend({
+  view: view
+});
+
+view.ui.add(legend, "bottom-right"); });
+
+
+
+  });
+
+
+</script>
+
+</head>
+
+<body>
+
+  <p style="color:white; font-size: x-large;text-align: center;direction: rtl;">خريطة تفاعلية لمنشئات جامعة الملك سعود باستخدام  WebGIS</p>
+  <p style="color:white; font-size: large;text-align: center;direction: rtl;">      تم التحديث   </p>
+
+  <p class="button" style="color:blueviolet; text-align: center;"><a href="./MainPage3.html"><button style="display:inline-block;block-size:30px; background-color:orange; box-shadow: #4d0256;">الرجوع للصفحة السابقة </button></a></p>
+  <p style="color:aliceblue; font-size:x-small;text-align: center;direction: rtl;">قم بالضغط على الخريطة لعرض البيانات والصور ، قم بتشغيل VPN في حال وجود مشاكل بفتح الخريطة</p>
+
+  <div id="viewDiv"></div>
+</body>
+<footer style="color:aliceblue;text-align: center;">اعداد الطالب محمد القحطاني</footer>
+</html>
