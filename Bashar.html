@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>التعليقات</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <style>
+    body { background-color: black; color: white; font-family: sans-serif; direction: rtl; }
+    .comment-box { margin: 20px auto; max-width: 600px; }
+    textarea { width: 100%; padding: 10px; margin-bottom: 10px; }
+    button { padding: 10px 20px; background: orange; border: none; color: black; font-weight: bold; }
+    .comment { background: #222; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="container text-center comment-box">
+  <h2>أضف تعليقك</h2>
+  <textarea id="commentInput" placeholder="اكتب تعليقك هنا..."></textarea>
+  <button onclick="submitComment()">إرسال</button>
+
+  <h3>التعليقات</h3>
+  <div id="comments"></div>
+</div>
+
+<script>
+  // 🔗 Replace this with your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAWfsomjm1p1URO0_3vBdtl_aeNYME5FfY",
+    authDomain: "almohandes-ksu.firebaseapp.com",
+    databaseURL: "https://almohandes-ksu-default-rtdb.firebaseio.com",
+    projectId: "almohandes-ksu",
+    storageBucket: "almohandes-ksu.firebasestorage.app",
+    messagingSenderId: "510058272031",
+    appId: "1:510058272031:web:3cd0e0ae0b15cf094b4c2a"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  function submitComment() {
+    const text = document.getElementById('commentInput').value.trim();
+    if (text === '') return alert('الرجاء كتابة تعليق أولاً');
+    const newComment = {
+      text,
+      timestamp: Date.now()
+    };
+    db.ref('comments').push(newComment);
+    document.getElementById('commentInput').value = '';
+  }
+
+  db.ref('comments').on('child_added', snapshot => {
+    const comment = snapshot.val();
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.textContent = comment.text;
+    document.getElementById('comments').prepend(div);
+  });
+</script>
+
+</body>
+</html>
