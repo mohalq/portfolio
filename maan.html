@@ -5,14 +5,19 @@
   <title>الدكتور معن العقيلي </title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+    margin: 0;
+    padding: 0;
       background-color: black;
       color: white;
       font-family: sans-serif;
       direction: rtl;
     }
     .comment-box {
+    padding: 10px;
+    box-sizing: border-box;
       margin: 20px auto;
       max-width: 600px;
       text-align: right;
@@ -66,6 +71,7 @@
 </div>
 
 <script>
+  const doctorId = "maan_oqaily";
   // ✅ Firebase Configuration
   const firebaseConfig = {
     apiKey: "AIzaSyAWfsomjm1p1URO0_3vBdtl_aeNYME5FfY",
@@ -111,7 +117,7 @@
     }
 
     // 🔐 Limit to 2 comments per device
-    const count = Number(localStorage.getItem('userCommentCount') || 0);
+    const count = Number(localStorage.getItem('userCommentCount_' + doctorId) || 0);
     if (count >= 1) {
       alert('لقد وصلت إلى الحد الأقصى لعدد التعليقات (تعليق واحد فقط ../).');
       return;
@@ -123,10 +129,10 @@
       timestamp: Date.now()
     };
 
-    db.ref('comments').push(newComment);
+    db.ref('comments/' + doctorId).push(newComment);
 
     // 🧠 Save to localStorage
-    localStorage.setItem('userCommentCount', count + 1);
+    localStorage.setItem('userCommentCount_' + doctorId, count + 1);
 
     // Clear form
     document.getElementById('commentInput').value = '';
@@ -134,7 +140,7 @@
   }
 
   // ✅ Display comments
-  db.ref('comments').on('child_added', snapshot => {
+  db.ref('comments/' + doctorId).on('child_added', snapshot => {
     const comment = snapshot.val();
     const div = document.createElement('div');
     div.className = 'comment';
