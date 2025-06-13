@@ -54,23 +54,57 @@
       text-align: center;
     }
 
-    .animate-charcter {
-      text-transform: uppercase;
-      background-image: linear-gradient(-225deg, #ddd6f3 0%, #c63f0e 29%, #dec5ce 67%, #898984 100%);
-      background-size: 200% auto;
-      color: #fff;
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textclip 2s linear infinite;
-      display: inline-block;
-      font-size: 40px;
-      box-shadow: 0px 0px 30px 30px #610863;
+    /* ⭐ STAR COLUMN TEXT ANIMATION */
+    .starry-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+      margin: 50px 0;
     }
 
-    @keyframes textclip {
-      to {
-        background-position: 200% center;
+    .starry-column {
+      width: 30%;
+      height: 100%;
+      background: repeating-radial-gradient(circle at center, #252c5c, #011324 40px);
+      opacity: 0.7;
+      animation: columnMove 9s ease-in-out infinite;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .starry-column.left {
+      left: 0;
+    }
+
+    .starry-column.right {
+      right: 0;
+    }
+
+    .starry-text {
+      z-index: 2;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      animation: textSquash 9s ease-in-out infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes columnMove {
+      0%, 100% { width: 30%; }
+      50% { width: 50%; }
+    }
+
+    @keyframes textSquash {
+      0%, 100% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scaleX(0);
+        opacity: 0;
       }
     }
 
@@ -81,7 +115,7 @@
     }
 
     ul.precious li {
-      margin-bottom: -15px; /* overlap */
+      margin-bottom: -15px;
       position: relative;
     }
 
@@ -104,19 +138,18 @@
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
 
-    /* Hover Effects */
     ul.precious li:nth-child(odd) .nav-link:hover {
       transform: translateX(35px) scale(1.07);
       opacity: 1;
-      box-shadow: 0 0 25px rgba(200, 0, 255, 0.7), 0 0 35px rgba(200, 0, 255, 0.4);
-      background-color: rgba(200, 0, 255, 0.1);
+      box-shadow: 0 0 25px rgba(0, 123, 255, 0.7), 0 0 35px rgba(0, 123, 255, 0.4);
+      background-color: rgba(0, 123, 255, 0.1);
     }
 
     ul.precious li:nth-child(even) .nav-link:hover {
       transform: translateX(-35px) scale(1.07);
       opacity: 1;
-      box-shadow: 0 0 25px rgba(200, 0, 255, 0.7), 0 0 35px rgba(200, 0, 255, 0.4);
-      background-color: rgba(200, 0, 255, 0.1);
+      box-shadow: 0 0 25px rgba(0, 123, 255, 0.7), 0 0 35px rgba(0, 123, 255, 0.4);
+      background-color: rgba(0, 123, 255, 0.1);
     }
 
     .test img {
@@ -140,35 +173,33 @@
     .alert {
       direction: rtl;
     }
-  
-@media (max-width: 768px) {
-  .nav-link {
-    padding: 12px 18px;
-    font-size: 16px;
-    max-width: 90%;
-    border-radius: 25px;
-  }
 
-  ul.precious {
-    margin-top: 20px;
-  }
+    @media (max-width: 768px) {
+      .nav-link {
+        padding: 12px 18px;
+        font-size: 16px;
+        max-width: 90%;
+        border-radius: 25px;
+      }
 
-  ul.precious li {
-    margin-bottom: 10px;
-  }
+      ul.precious {
+        margin-top: 20px;
+      }
 
-  .animate-charcter {
-    font-size: 26px;
-    box-shadow: none;
-  }
+      ul.precious li {
+        margin-bottom: 10px;
+      }
 
-  .test img {
-    width: 100px;
-    height: auto;
-  }
-}
+      .starry-text {
+        font-size: 20px;
+      }
 
-</style>
+      .test img {
+        width: 100px;
+        height: auto;
+      }
+    }
+  </style>
 
   <script>
     var myVar;
@@ -193,7 +224,12 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center">
-          <h3 style="font-family:'Times New Roman', Times, serif; text-transform:capitalize;" class="animate-charcter mt-4" > AL Mohandes KSU</h3>
+          <!-- 🌟 New Starry Animation -->
+          <div class="starry-container">
+            <div class="starry-column left"></div>
+            <div class="starry-text">AL Mohandes KSU</div>
+            <div class="starry-column right"></div>
+          </div>
         </div>
       </div>
     </div>
